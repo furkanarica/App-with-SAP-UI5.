@@ -1,0 +1,96 @@
+<mvc:View
+   controllerName="sap.ui.demo.walkthrough.controller.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:semantic="sap.m.semantic"
+   height="100%"
+   xmlns:l="sap.ui.layout"
+   xmlns:u="sap.ui.unified"
+   displayBlock="true">
+
+    <App class="myAppDemoWT">
+        
+        <SplitContainer>   
+            
+            <masterPages>
+                
+                <semantic:MasterPage title="{i18n>masterPageTitle}"  floatingFooter="true">
+
+                    <semantic:customFooterContent>
+					    <OverflowToolbarButton icon="sap-icon://delete" press="onDeletePress" id="deleteButton" visible="false"/>
+                        <OverflowToolbarButton icon="sap-icon://edit" press="onEditPress" id="editButton" visible="false"/>
+                        <Button text="CANCEL" press = "onCancelDeletePress" id="cancelDelete" visible="false"/>
+                        <Button text="CANCEL" press = "onCancelEditPress" id="cancelEdit" visible="false"/>
+                    </semantic:customFooterContent>
+
+                    <SearchField width="100%" search=".onFilterInvoices"/>
+
+
+                    <List
+                        id="staffList"
+		                headerText=""
+                        noDataText='"No Registered Personnel"'
+                        mode="None"
+                        delete="handleDelete"
+                        select="SingleSelect"
+                        items="{/personnel}">
+                            
+                            <StandardListItem
+                            title="{pName} {pSurname}"
+                            description = "{pNumber}"
+                            icon = "{pPhoto}"
+                            info ="{pId}"
+                            iconDensityAware="false"
+                            iconInset="false"/>
+
+                    </List>
+                
+                </semantic:MasterPage>
+            
+            </masterPages>
+
+            <detailPages>
+                
+                <semantic:DetailPage title="{i18n>detailPageTitle}" floatingFooter="true">
+                    
+                    <l:VerticalLayout class="sapUiContentPadding" width="100%">
+
+                    <Label text="Name:" labelFor="inputName" />
+                    <Input id="pName" placeholder="Enter Name" value="{/personData/pName}"/>
+
+                    <Label text="Surname:" labelFor="inputSurname"/>
+                    <Input id="pSurname" placeholder="Enter Surname" value="{/personData/pSurname}"/>
+
+                    <Label text="Phone Number::" labelFor="inputNumber"/>
+                    <Input id="pNumber" placeholder="Enter Phone Number" value="{/personData/pNumber}"/>
+                    
+                    <u:FileUploader id="fileUploader" change = "onChangeFile" style="Emphasized" placeholder="Add a photo.."/>     
+                    
+                    </l:VerticalLayout>
+                    
+                    <semantic:pagingAction>
+					    <Button icon = "sap-icon://add" press = "onClearButtonPress" id="clearButton" />
+				    </semantic:pagingAction>
+
+
+				    <semantic:customFooterContent>
+					    <OverflowToolbarButton icon="sap-icon://doctor" press="onSavePress" id="saveButton"/>
+                        <Button text="Save" press = "onSaveEditPress" id="saveEdit" visible="false" type="Emphasized" icon = "sap-icon://accept"/>
+                        <Button text="Exit" press = "onExitEditPress" id="exitEdit" visible="false" icon = "sap-icon://decline"/>
+				    </semantic:customFooterContent>
+
+
+
+
+                
+                </semantic:DetailPage>
+            
+            </detailPages>
+
+        
+        </SplitContainer> 
+
+  
+
+    </App>
+</mvc:View>
